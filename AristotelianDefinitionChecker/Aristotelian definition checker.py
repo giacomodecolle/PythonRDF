@@ -46,7 +46,7 @@ for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
     index_of_parent_class = words.index(parent_class)
     if (
         index_of_parent_class + 1 < len(words)
-        and words[index_of_parent_class + 1] in {"that", "who"}
+        and words[index_of_parent_class + 1] in {"that", "who", "where}
     ):
         continue  # Definition is compliant with Aristotelian model
 
