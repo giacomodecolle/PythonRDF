@@ -1,1 +1,1 @@
-This folder contains a Python checker for compliance with Aristotelian definitions. Notice that it was originally developed to work with the OccO ontology, so paths and properties will need to be changed.
+This folder contains a Python script that checks for compliance with Aristotelian definitions. Notice that it was originally developed to work with the OccO ontology, so paths and properties will need to be changed.
