@@ -9,13 +9,13 @@ obo = Namespace("http://purl.obolibrary.org/obo/")
 g = Graph()
 
 # Load your OWL/Turtle file
-file_path = "/home/giacomo/Downloads/REPOS 2/OccO-main/occoturtle.ttl"  # Replace with the actual file path
+file_path = ""  # Replace with the actual file path, in .ttl format
 g.parse(file_path, format="ttl")
 
 # Initialize a list to store non-compliant subjects
 non_aristotelian_subjects = []
 
-# Iterate through triples with obo:IAO_0000115 predicate
+# Iterate through triples with the designated definition predicate. In this file, I used obo.IAO_0000115,but you can substitute it with skos:definiton or whatever your ontology is using.
 for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
     if not isinstance(obj, Literal):
         continue  # Skip if the object is not a literal
@@ -25,8 +25,7 @@ for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
     # Split the definition into words
     words = definition.split()
 
-    # Find the parent class by checking the label of the class that is the object of rdfs:subclass
-    parent_class = None
+    # Find the parent class by checking the rdfs:label of the class that is the object of rdfs:subclass. You can also change this to use skos:prefLabel, etc.
     for class_obj in g.objects(subject, RDFS.subClassOf):
         for label in g.objects(class_obj, RDFS.label):
             if isinstance(label, Literal):
@@ -42,7 +41,7 @@ for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
         non_aristotelian_subjects.append((subject, parent_class, definition))  # Store non-compliant subject
         continue
 
-    # Check if the first word after the parent class is "that" or "who"
+    # Check if the first word after the parent class is "that" or "who" or "where"
     index_of_parent_class = words.index(parent_class)
     if (
         index_of_parent_class + 1 < len(words)
@@ -52,8 +51,8 @@ for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
 
     non_aristotelian_subjects.append((subject, parent_class, definition))  # Store non-compliant subject
 
-# Create or open a Markdown file to write the list of non-compliant subjects
-with open("/home/giacomo/Downloads/REPOS 2/OccO-main/non_compliant_subjects.md", "w") as md_file:
+# Create or open a Markdown file to write the list of non-compliant subjects. Substitute the three dots with desired path.
+with open(".../non_compliant_subjects.md", "w") as md_file:
     if non_aristotelian_subjects:
         md_file.write("Non-Aristotelian definitions detected for the following subjects:\n")
         for subject, label, definition in non_aristotelian_subjects:
