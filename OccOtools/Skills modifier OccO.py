@@ -9,7 +9,7 @@ obo = Namespace("http://purl.obolibrary.org/obo/")
 g = Graph()
 
 # Load your OWL/Turtle file
-file_path = "/home/giacomo/Downloads/REPOS 2/OccO-main/occoturtle.ttl"  # Replace with the actual file path
+file_path = ""  # Replace with the actual file path
 g.parse(file_path, format="ttl")
 
 # Initialize a list to store non-compliant subjects
@@ -51,4 +51,4 @@ for subject, predicate, obj in g.triples((None, obo.IAO_0000115, None)):
         g.set((subject, obo.IAO_0000115, Literal(modified_definition)))
 
 # Serialize the modified graph to a file (optional)
-g.serialize("/home/giacomo/Downloads/REPOS 2/OccO-main/occoturtlemodified.ttl", format="ttl")
+g.serialize("", format="ttl")
