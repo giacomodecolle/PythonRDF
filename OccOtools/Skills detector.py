@@ -9,7 +9,7 @@ obo = Namespace("http://purl.obolibrary.org/obo/")
 g = Graph()
 
 # Load your OWL/Turtle file
-file_path = "/home/giacomo/Downloads/REPOS 2/OccO-main/occoturtle.ttl"  # Replace with the actual file path
+file_path = ""  # Replace with the actual file path
 g.parse(file_path, format="ttl")
 
 # Initialize a list to store non-compliant subjects
